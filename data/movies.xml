@@ -1,0 +1,30 @@
+<movies>
+    <movie id="1">
+        <movie_id name="movie_id">1</movie_id>
+        <title name="title">Tom</title>
+        <year name="year">2019</year>
+        <description name="description">Thomas is trapped inside a fabricated reality he can&#8217;t be sure is real.
+        </description>
+        <rating name="rating">5.0</rating>
+        <imdb_rating name="imdb_rating">8.0</imdb_rating>
+        <rotten_rating name="rotten_rating">95</rotten_rating>
+        <ranking name="ranking">2</ranking>
+        <review name="review">alo</review>
+        <image_url name="image_url">https://image.tmdb.org/t/p/w500/1B999CvAKUgKFR52QGxmzhfzEzO.jpg</image_url>
+    </movie>
+    <movie id="2">
+        <movie_id name="movie_id">2</movie_id>
+        <title name="title">Thor: Ragnarok</title>
+        <year name="year">2017</year>
+        <description name="description">Thor is imprisoned on the other side of the universe and finds himself in a race
+            against time to get back to Asgard to stop Ragnarok, the destruction of his home-world and the end of
+            Asgardian civilization, at the hands of a powerful new threat, the ruthless Hela.
+        </description>
+        <rating name="rating">7.0</rating>
+        <imdb_rating name="imdb_rating">7.9</imdb_rating>
+        <rotten_rating name="rotten_rating">9 5</rotten_rating>
+        <ranking name="ranking">1</ranking>
+        <review name="review">Ok</review>
+        <image_url name="image_url">https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg</image_url>
+    </movie>
+</movies>
