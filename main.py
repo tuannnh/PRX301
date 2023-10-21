@@ -1,11 +1,14 @@
 import os
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, send_file, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from dotenv import load_dotenv
+from data_access.movie_data_access import get_all_movies, generate_movies_xml
+
+
 import requests
 from movie_getter import movie_database_getter, imdb_getter, rotten_tomatoes_getter
 from data_access import movie_data_access
@@ -39,16 +42,28 @@ class AddMovieForm(FlaskForm):
 
 @app.route("/")
 def home():
-    # create a list of movies sorted by rating
+    sort_option = request.args.get("sort", "rating_desc")
     all_movies = movie_data_access.get_all_movies()
-    if len(all_movies) > 0:
-        sorted_movies = movie_data_access.sort_movies_by_rating(all_movies)
-        for i in range(len(sorted_movies)):
-            sorted_movies[i].ranking = len(sorted_movies) - i
-            movie_data_access.update_movie(sorted_movies[i])
+    # Sort the movies by rating and update their ranking
+    if all_movies:
+         # Sort the movies based on the selected sorting option
+        if sort_option == "rating_desc":
+            sorted_movies = sorted(all_movies, key=lambda x: float(x.rating) if x.rating else 0, reverse=True)
+        elif sort_option == "rating_asc":
+            sorted_movies = sorted(all_movies, key=lambda x: float(x.rating) if x.rating else 0)
+        elif sort_option == "newest":
+            sorted_movies = sorted(all_movies, key=lambda x: int(x.movie_id), reverse=True)
+        elif sort_option == "oldest":
+            sorted_movies = sorted(all_movies, key=lambda x: int(x.movie_id))
+        # Update the movie ranking
+        for i, movie in enumerate(sorted_movies, start=1):
+            movie.ranking = i
+            movie_data_access.update_movie(movie)
     else:
         sorted_movies = all_movies
+
     return render_template("index.html", movies=sorted_movies)
+
 
 
 # Add movie route
@@ -95,13 +110,14 @@ def edit_movie():
     movie_id = request.args.get("id")
     movie_title = request.args.get("title")
     update_movie = movie_data_access.search_movie_by_id(movie_id)
-    imdb_rating = imdb_getter.get_movie_rating(movie_title=movie_title)
-    rotten_rating = rotten_tomatoes_getter.get_movie_ratings(movie_title=movie_title)
+    # Don't need to update imdb_rating and tomatoes, so we don't need setter for two rating and can safely remove it but i'm too lazy to do it
+    # imdb_rating = imdb_getter.get_movie_rating(movie_title=movie_title)
+    # rotten_rating = rotten_tomatoes_getter.get_movie_ratings(movie_title=movie_title)
     if form.validate_on_submit():
         update_movie.rating = str(float(form.rating.data))
         update_movie.review = form.review.data
-        update_movie.imdb_rating = imdb_rating
-        update_movie.rotten_rating = rotten_rating
+        #update_movie.imdb_rating = imdb_rating
+        #update_movie.rotten_rating = rotten_rating
         movie_data_access.update_movie(update_movie)
         return redirect(url_for("home"))
     return render_template("edit.html", movie=update_movie, form=form)
@@ -114,6 +130,17 @@ def delete_movie():
     movie_data_access.delete_movie(delete_movie_id=movie_id)
     return redirect(url_for("home"))
 
+# Export xml file route
+@app.route("/export_xml")
+def export_xml():
+     # Get all movies from your data
+    all_movies = get_all_movies()
+
+    # Generate the XML file
+    generate_movies_xml(all_movies)
+
+    # Serve the generated XML file for download
+    return send_file("data/exported_movies.xml", as_attachment=True, download_name="movies.xml")
 
 @app.errorhandler(404)
 def handle_not_found_error(error):

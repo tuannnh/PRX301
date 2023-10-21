@@ -8,7 +8,7 @@
         <rating name="rating">5.0</rating>
         <imdb_rating name="imdb_rating">8.0</imdb_rating>
         <rotten_rating name="rotten_rating">95</rotten_rating>
-        <ranking name="ranking">2</ranking>
+        <ranking name="ranking">1</ranking>
         <review name="review">alo</review>
         <image_url name="image_url">https://image.tmdb.org/t/p/w500/1B999CvAKUgKFR52QGxmzhfzEzO.jpg</image_url>
     </movie>
@@ -23,8 +23,8 @@
         <rating name="rating">7.0</rating>
         <imdb_rating name="imdb_rating">7.9</imdb_rating>
         <rotten_rating name="rotten_rating">9 5</rotten_rating>
-        <ranking name="ranking">1</ranking>
-        <review name="review">Ok</review>
+        <ranking name="ranking">2</ranking>
+        <review name="review">Thor handsome</review>
         <image_url name="image_url">https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg</image_url>
     </movie>
-</movies>
+<movie id="4"><movie_id name="movie_id">4</movie_id><title name="title">Thor</title><year name="year">2011</year><description name="description">Against his father Odin's will, The Mighty Thor - a powerful but arrogant warrior god - recklessly reignites an ancient war. Thor is cast down to Earth and forced to live among humans as punishment. Once here, Thor learns what it takes to be a true hero when the most dangerous villain of his world sends the darkest forces of Asgard to invade Earth.</description><rating name="rating">2.0</rating><imdb_rating name="imdb_rating">7.0</imdb_rating><rotten_rating name="rotten_rating">92</rotten_rating><ranking name="ranking">3</ranking><review name="review">very boring</review><image_url name="image_url">https://image.tmdb.org/t/p/w500/prSfAi1xGrhLQNxVSUFh61xQ4Qy.jpg</image_url></movie><movie id="5"><movie_id name="movie_id">5</movie_id><title name="title">Mission: Impossible - Dead Reckoning Part One</title><year name="year">2023</year><description name="description">Ethan Hunt and his IMF team embark on their most dangerous mission yet: To track down a terrifying new weapon that threatens all of humanity before it falls into the wrong hands. With control of the future and the world's fate at stake and dark forces from Ethan's past closing in, a deadly race around the globe begins. Confronted by a mysterious, all-powerful enemy, Ethan must consider that nothing can matter more than his mission&#8212;not even the lives of those he cares about most.</description><rating name="rating">8.0</rating><imdb_rating name="imdb_rating">None</imdb_rating><rotten_rating name="rotten_rating">None</rotten_rating><ranking name="ranking">4</ranking><review name="review">Tom Cruise handsome</review><image_url name="image_url">https://image.tmdb.org/t/p/w500/NNxYkU70HPurnNCSiCjYAmacwm.jpg</image_url></movie></movies>

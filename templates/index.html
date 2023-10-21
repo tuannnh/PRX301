@@ -16,8 +16,22 @@
 {% block content %}
 <div class="container">
     <h1 class="heading">My Top Ranked Movies</h1>
+    <div class="container text-center export">
+        <a href="{{ url_for('export_xml') }}" class="button">Export Movies to XML</a>
+    </div>
     <p class="description">These are my alltime favourite movies.</p>
-    {% for movie in movies %}
+    <form method="get">
+        <label for="sort">Sort by:</label>
+        <select name="sort" id="sort">
+            <option value="rating_desc">Rating (High to Low)</option>
+            <option value="rating_asc">Rating (Low to High)</option>
+            <option value="newest">Newest Added</option>
+            <option value="oldest">Oldest Added</option>
+        </select>
+        <button type="submit">Sort</button>
+    </form>
+    <ul>
+        {% for movie in movies %}
     <div class="card">
         <div class="front" style="background-image: url('{{ movie.image_url }}');">
             <p class="large">{{ movie.ranking }}</p>
@@ -33,7 +47,9 @@
                 <p class="overview">
                     {{ movie.description }}
                 </p>
-
+                 <!-- Display IMDb and Rotten Tomatoes ratings here -->
+                <p class="imdb-rating">IMDb: {{ movie.imdb_rating }}</p>
+                <p class="rotten-rating">Rotten Tomatoes: {{ movie.rotten_rating }}</p>
                 <a href="{{ url_for('edit_movie', id=movie.movie_id) }}" class="button">Update</a>
                 <a href="{{ url_for('delete_movie', id=movie.movie_id) }}" class="button delete-button">Delete</a>
 
@@ -41,6 +57,7 @@
         </div>
     </div>
     {% endfor %}
+</ul>
 </div>
 <div class="container text-center add">
     <a href="{{ url_for('add_movie') }}" class="button">Add Movie</a>
