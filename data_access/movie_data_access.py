@@ -207,3 +207,21 @@ def delete_movie(delete_movie_id: str) -> bool:
             tree.write(MOVIES_XML_PATH)
         else:
             print("Move ID not found! Please refresh!")
+           
+# generate xml files
+def generate_movies_xml(movies):
+    root = ET.Element("movies")
+    for movie in movies:
+        movie_element = ET.Element("movie")
+        
+        ET.SubElement(movie_element, "title").text = movie.title
+        ET.SubElement(movie_element, "year").text = movie.year
+        ET.SubElement(movie_element, "rating").text = movie.rating
+        ET.SubElement(movie_element, "imdb_rating").text = movie.imdb_rating
+        ET.SubElement(movie_element, "rotten_rating").text = str(movie.rotten_rating)
+        ET.SubElement(movie_element, "ranking").text = movie.ranking
+
+        root.append(movie_element)
+    
+    tree = ET.ElementTree(root)
+    tree.write("data/exported_movies.xml")
